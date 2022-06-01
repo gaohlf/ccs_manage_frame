@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冰山冷云运维管理系统</title>
+</head>
+<body onload="onload()">
+
+<!--<select>-->
+<!--    <option value="volvo">Volvo</option>-->
+<!--    <option value="saab">Saab</option>-->
+<!--    <option value="mercedes">Mercedes</option>-->
+<!--    <option value="audi">Audi</option>-->
+<!--</select>-->
+
+<div class="nav">
+
+    <div id="box1" class="current" onclick="box1_clicked()">晴雨表</div>
+<!--    <div id="box2" class="" onclick="box2_clicked()">监控平台</div>-->
+    <div id="link" ><a href="http://172.28.1.14:3000">监控平台</a></div>
+</div>
+<a id="url"></a>
+<iframe id="frame-box"></iframe>
+<!--<iframe src="http://172.30.46.49:9999" style="width: 100%;height : 1000px" >-->
+</iframe>
+
+</body>
+</html>
+<script type="text/javascript">
+
+    function onload()
+    {
+        box1_clicked();
+    }
+
+    function clear_current()
+    {
+        var box1= document.getElementById("box1");
+        box1.setAttribute("class","");
+
+        var box2= document.getElementById("box2");
+        box2.setAttribute("class","");
+    }
+
+    function box1_clicked()
+    {
+        clear_current();
+        var box1= document.getElementById("box1");
+        box1.setAttribute("class","current");
+        console.log("box1_clicked")
+        var iframe = document.getElementById("frame-box");
+        iframe.src="http://172.30.46.49:9999";
+        var url = document.getElementById("url");
+        url.textContent = "frame link[" + iframe.src + "]";
+
+    }
+
+    function box2_clicked()
+    {
+        console.log("box2_clicked")
+        clear_current();
+        var box2= document.getElementById("box2");
+        box2.setAttribute("class","current");
+        var iframe = document.getElementById("frame-box");
+        iframe.src="http://172.28.1.14:3000/d/UCFi-Katt/bing-shan-zong-ti-liu-liang-jian-kong?orgId=1&refresh=5m";
+        var url = document.getElementById("url");
+        url.textContent = "frame link[" + iframe.src + "]";
+    }
+
+</script>
+<style >
+
+    .nav {
+        display: flex;
+        width: 453px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .nav div {
+        font-size: 14px;
+        /*font-family: Microsoft YaHei, Microsoft YaHei-Regular;*/
+        padding: 0 20px;
+        letter-spacing: 2px;
+        color: #333333;
+        border: 1px solid #cccc;
+        box-sizing: border-box;
+    }
+
+    .nav .box1 {
+        border-radius: 3px 0 0 3px;
+    }
+
+    .nav .box2 {
+        border-left: none;
+    }
+
+    .nav .current {
+        color: #3161a9;
+        border: 1px solid #3161a9;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100vh;
+    }
+</style>

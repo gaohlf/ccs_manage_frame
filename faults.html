@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>故障列表</title>
+</head>
+<body  style="background-image: url('imag/notready.jpg');background-size:cover">
+<header>
+	<div style="float: right">
+		<img id="service" src="imag/service.png" style="" width="40" height="40" alt=""/>
+		<img id="disks" src="imag/disk.png" width="40" height="40" alt=""/>
+		<img id="server" src="imag/server.png" width="40" height="40" alt=""/>
+		<img id= "net" src="imag/net.png" width="40" height="40" alt=""/>
+		<img id="soft" src="imag/soft.png" width="40" height="40" alt=""/>
+	</div> 
+</header>
+<main class="main" ></main>
+</body>
+</html>
+
+<script type="text/javascript">
+	function onload()
+	{
+		setTimeout(function()
+		{
+			console.log("reload")
+			location.reload();
+		},360000); //指定6分钟刷新一次
+	}
+
+</script>
+
+<style>
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #d3dce6;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+</style>
+

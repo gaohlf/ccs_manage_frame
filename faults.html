@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>故障列表</title>
+</head>
+<body>
+<header>
+	<div style="float: right">
+		<img id="service" src="imag/service.png" style="" width="40" height="40" alt=""/>
+		<img id="disk" src="imag/disk.png" width="40" height="40" alt=""/>
+		<img id="server" src="imag/server.png" width="40" height="40" alt=""/>
+		<img id= "net" src="imag/net.png" width="40" height="40" alt=""/>
+		<img id="soft" src="imag/soft.png" width="40" height="40" alt=""/>
+	</div>
+</header>
+<main class="main" >
+	<button onclick="test()">测试</button>
+	<div id="enclosure"  style="background-image:url('imag/enclosure.jpg');background-size: cover;width: 630px; height: 800px">
+	  <div>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	    <p>&nbsp;</p>
+	  </div>
+	</div>
+</main>
+</body>
+</html>
+
+<script type="text/javascript">
+	function test()
+	{
+		name_array = ["service", "disk","server","net","soft"]
+		var i = Math.floor(Math.random()*10000) % 5;
+		console.log(i)
+		console.log(name_array[i])
+		errorcnt_map[name_array[i]] =  Math.floor(Math.random()*10000) % 2;
+	}
+
+	function onload()
+	{
+		setTimeout(function()
+		{
+			console.log("reload")
+			location.reload();
+		},360000); //指定6分钟刷新一次
+	}
+
+	var image_map = {"service":"imag/service.png", "disk":"imag/disk.png","server":"imag/server.png",
+		"net":"imag/net.png","soft":"imag/soft.png"}
+	var ontime_map = {"service":true, "disk":true,"server":true,
+		"net":true,"soft":true}
+	var errorcnt_map = {"service":0, "disk":0,"server":0,"net":0,"soft":0}
+
+	function flashimage(imageid)
+	{
+		var imgId = document.getElementById(imageid);
+		//console.log(imgId.src);
+		if(ontime_map[imageid] === true){//图片隐藏
+			ontime_map[imageid] = false;
+			imgId.src = "imag/warning.gif";//图片显示
+		}else{
+			ontime_map[imageid] = true;
+			imgId.src= image_map[imageid];//图片隐藏
+		}
+	}
+
+	function resetimage(imageid)
+	{
+		var imgId = document.getElementById(imageid);
+		imgId.src= image_map[imageid];//图片隐藏
+	}
+
+	function updateImg(){
+		// console.log("updateImg")
+		Object.keys(errorcnt_map).forEach(function (current){
+			if(errorcnt_map[current] === 0)
+			{
+				resetimage(current);
+			}
+			else
+			{
+				flashimage(current);
+			}
+		});
+
+
+	}
+	/*每隔0.5秒显示一次*/
+	setInterval("updateImg()",500);
+</script>
+
+<style>
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #d3dce6;
+    }
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+</style>
+

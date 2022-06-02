@@ -13,15 +13,14 @@
 <!--    <option value="audi">Audi</option>-->
 <!--</select>-->
 
-<div class="nav">
-
-    <div id="box1" class="current" onclick="box1_clicked()">晴雨表</div>
-<!--    <div id="box2" class="" onclick="box2_clicked()">监控平台</div>-->
+<div id="boxes" class="nav">
+    <div id="box1" class="current" onclick="button_clicked('box1', 'http://172.30.46.49:9999')">晴雨表</div>
+    <div id="box2" class="" onclick="button_clicked('box2','http://10.10.96.5:9180/#/account_dash?token=admin')">门户管理</div>
+    <div id="box3" class="" onclick="button_clicked('box3','faults.html')">故障列表</div>
     <div id="link" ><a href="http://172.28.1.14:3000">监控平台</a></div>
 </div>
 <a id="url"></a>
 <iframe id="frame-box"></iframe>
-<!--<iframe src="http://172.30.46.49:9999" style="width: 100%;height : 1000px" >-->
 </iframe>
 
 </body>
@@ -30,41 +29,33 @@
 
     function onload()
     {
-        box1_clicked();
+        button_clicked("box1",'http://172.30.46.49:9999');
+        setTimeout(function()
+        {
+            console.log("reload")
+            location.reload();
+        },3600000); //指定1小时刷新一次
     }
 
     function clear_current()
     {
-        var box1= document.getElementById("box1");
-        box1.setAttribute("class","");
-
-        // var box2= document.getElementById("box2");
-        // box2.setAttribute("class","");
+        var boxes = document.getElementById("boxes").getElementsByTagName("div");
+        for (i = 0; i < boxes.length; i++)
+        {
+            boxes[i].setAttribute("class", "");
+        }
     }
 
-    function box1_clicked()
+    function button_clicked(boxname, urlpath)
     {
         clear_current();
-        var box1= document.getElementById("box1");
+        var box1= document.getElementById(boxname);
         box1.setAttribute("class","current");
-        console.log("box1_clicked")
-        var iframe = document.getElementById("frame-box");
-        iframe.src="http://172.30.46.49:9999";
-        var url = document.getElementById("url");
-        url.textContent = "frame link[" + iframe.src + "]";
-
-    }
-
-    function box2_clicked()
-    {
-        console.log("box2_clicked")
-        clear_current();
-        var box2= document.getElementById("box2");
-        box2.setAttribute("class","current");
-        var iframe = document.getElementById("frame-box");
-        iframe.src="http://172.28.1.14:3000/d/UCFi-Katt/bing-shan-zong-ti-liu-liang-jian-kong?orgId=1&refresh=5m";
-        var url = document.getElementById("url");
-        url.textContent = "frame link[" + iframe.src + "]";
+        console.log(boxname + "_clicked")
+        let iframe = document.getElementById("frame-box");
+        iframe.src= urlpath;
+        // var url = document.getElementById("url");
+        // url.textContent = "frame link[" + iframe.src + "]";
     }
 
 </script>
@@ -85,14 +76,6 @@
         color: #333333;
         border: 1px solid #cccc;
         box-sizing: border-box;
-    }
-
-    .nav .box1 {
-        border-radius: 3px 0 0 3px;
-    }
-
-    .nav .box2 {
-        border-left: none;
     }
 
     .nav .current {
